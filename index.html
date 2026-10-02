@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Candence — Find your cadence</title>
+  <meta name="description" content="Candence is the speedcubing app with a WCA-grade timer, a virtual 3D cube, a camera solver, deep stats and a coach that tells you exactly what to learn next.">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta property="og:title" content="Candence — Find your cadence">
+  <meta property="og:description" content="Timer, virtual cube, solver, stats and coach — one calm, obsessive speedcubing app.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- icon sprite -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-timer" viewBox="0 0 24 24"><circle cx="12" cy="13.5" r="7.5"/><path d="M12 9.5v4l2.5 2M9.5 2.5h5M12 2.5V6"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 2.8 20.5 7.5v9L12 21.2 3.5 16.5v-9z"/><path d="M3.5 7.5 12 12.2l8.5-4.7M12 12.2v9"/></symbol>
+    <symbol id="i-stats" viewBox="0 0 24 24"><path d="M5 20v-7M10 20V7M15 20v-9M20 20V4"/></symbol>
+    <symbol id="i-learn" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.6"/><rect x="13" y="4" width="7" height="7" rx="1.6"/><rect x="4" y="13" width="7" height="7" rx="1.6"/><rect x="13" y="13" width="7" height="7" rx="1.6"/></symbol>
+    <symbol id="i-hand" viewBox="0 0 24 24"><path d="M8.5 12.5V5.2a1.5 1.5 0 0 1 3 0v6.3M11.5 11V3.9a1.5 1.5 0 0 1 3 0V11M14.5 11.3V5.4a1.5 1.5 0 0 1 3 0v9.1a6.5 6.5 0 0 1-6.5 6.5h-.6a6 6 0 0 1-4.9-2.5l-2.6-3.9a1.6 1.6 0 0 1 2.5-2l1.6 1.9V8.2a1.5 1.5 0 0 1 3 0"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9L20 8.5M20 3.5v5h-5"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M10 11v6M14 11v6M6.5 7l.8 12.2a1.5 1.5 0 0 0 1.5 1.3h6.4a1.5 1.5 0 0 0 1.5-1.3L17.5 7M9.5 7V4.5h5V7"/></symbol>
+    <symbol id="i-pads" viewBox="0 0 24 24"><rect x="3" y="7" width="7.5" height="10" rx="2"/><rect x="13.5" y="7" width="7.5" height="10" rx="2"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-restart" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.6-5.9L4 8.5M4 3.5v5h5"/></symbol>
+    <symbol id="i-prev" viewBox="0 0 24 24"><path d="M17 6v12l-8.5-6zM7 6v12"/></symbol>
+    <symbol id="i-next" viewBox="0 0 24 24"><path d="M7 6v12l8.5-6zM17 6v12"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6.5" y="5.5" width="3.8" height="13" rx="1" fill="currentColor"/><rect x="13.7" y="5.5" width="3.8" height="13" rx="1" fill="currentColor"/></symbol>
+    <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3.5 8.5a2 2 0 0 1 2-2h2l1.6-2.2h5.8l1.6 2.2h2a2 2 0 0 1 2 2V18a2 2 0 0 1-2 2h-13a2 2 0 0 1-2-2z"/><circle cx="12" cy="13" r="3.6"/></symbol>
+    <symbol id="i-voice" viewBox="0 0 24 24"><path d="M11 5 6.5 9H3.5v6h3L11 19zM15.5 9a4.5 4.5 0 0 1 0 6M18.3 6.2a8.5 8.5 0 0 1 0 11.6"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5.5 21V4h11l-2 4 2 4h-11"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M21.5 20a6.5 6.5 0 0 0-4-6"/></symbol>
+    <symbol id="i-note" viewBox="0 0 24 24"><path d="M5.5 3.5h9l4 4v13h-13z"/><path d="M14.5 3.5v4h4M9 12h6M9 16h4"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.5 13.9 9l5.6 1.9-5.6 1.9L12 18.5l-1.9-5.7-5.6-1.9L10.1 9z"/><path d="M19 3.5v3M17.5 5h3"/></symbol>
+    <symbol id="i-hold" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 4v12M6.5 11l5.5 5.5 5.5-5.5M5 20.5h14"/></symbol>
+  </svg>
+
+  <canvas id="scene" aria-hidden="true"></canvas>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#top" aria-label="Candence home">
+      <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+        <path d="M16 2 28.1 9 16 16 3.9 9z" fill="#f2f1ea"/><path d="M3.9 9 16 16v14L3.9 23z" fill="#1fa862"/><path d="M16 16 28.1 9v14L16 30z" fill="#e43b30"/>
+        <path d="M11.97 4.33l12.1 7M7.93 6.67l12.1 7M20.03 4.33l-12.1 7M24.07 6.67l-12.1 7M7.93 11.33v14M11.97 13.67v14M3.9 13.67l12.1 7M3.9 18.33l12.1 7M20.03 13.67v14M24.07 11.33v14M16 20.67l12.1-7M16 25.33l12.1-7" stroke="#0a0a0a" stroke-width="1.15"/>
+      </svg>
+      <span>Candence</span>
+    </a>
+    <nav class="nav-links" aria-label="Sections">
+      <a href="#timer">Timer</a><a href="#solver">Cube</a><a href="#stats">Stats</a><a href="#learn">Learn</a><a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn--light btn--sm" href="#download">Get Candence</a>
+  </header>
+
+  <main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="dot"></span>The speedcubing app</p>
+          <h1 class="hero-title"><span class="line"><span>Find your</span></span><span class="line"><span><em>cadence.</em></span></span></h1>
+          <p class="hero-sub">A WCA-grade timer, a 3D cube you can actually turn, a solver that reads your real cube, and a coach that knows what you should learn next. One calm, slightly obsessive app.</p>
+          <div class="hero-ctas">
+            <a class="btn btn--mint btn--lg" href="#download"><svg class="i"><use href="#i-down"/></svg>Download free</a>
+            <a class="btn btn--ghost btn--lg" href="#tools">See what's inside</a>
+          </div>
+          <ul class="hero-facts">
+            <li><b>0.01 s</b><span>timing precision</span></li>
+            <li><b>15 s</b><span>WCA inspection</span></li>
+            <li><b>161</b><span>cases to learn</span></li>
+            <li><b>5</b><span>solving methods</span></li>
+          </ul>
+        </div>
+        <div class="hero-stage" id="play">
+          <div class="vt" aria-live="polite">
+            <span class="vt-pill" id="vtState">Virtual</span>
+            <span class="vt-time" id="vtTime">0.00</span>
+            <span class="vt-moves" id="vtMoves">0 moves</span>
+          </div>
+          <div class="cube-anchor cube-anchor--hero" data-cube="hero" data-touch="none" aria-label="Interactive 3D cube"></div>
+          <p class="stage-hint" id="vtHint">Drag a sticker to turn a layer · drag beside the cube to spin it</p>
+          <div class="stage-actions">
+            <button class="btn btn--light" id="vtScramble" type="button">Scramble &amp; race</button>
+            <button class="btn" id="vtSolve" type="button">Solve</button>
+            <button class="btn btn--ghost" id="vtReset" type="button">Reset</button>
+          </div>
+          <div class="move-log mono" id="vtLog" aria-hidden="true"></div>
+          <p class="keys-hint">Keyboard: <kbd>R</kbd> <kbd>U</kbd> <kbd>F</kbd> <kbd>L</kbd> <kbd>D</kbd> <kbd>B</kbd> · hold <kbd>Shift</kbd> for prime</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true"><div class="ticker-track mono" id="ticker"></div></div>
+
+    <!-- ============ FOUR TOOLS ============ -->
+    <section class="section tools" id="tools">
+      <div class="wrap">
+        <header class="sec-head center" data-reveal>
+          <p class="eyebrow"><span class="dot"></span>Everything in one app</p>
+          <h2>Four tools.<br><em>One rhythm.</em></h2>
+          <p class="lead">Taken apart and rebuilt around one idea: your next solve should be better than your last.</p>
+        </header>
+        <div class="tools-grid">
+          <a class="tool-card tc-1" href="#timer" data-reveal data-tilt="5">
+            <span class="tc-top"><svg class="i"><use href="#i-timer"/></svg><span class="tc-num">01</span></span>
+            <h3>Timer</h3>
+            <p>Hold, release, solve. WCA inspection, automatic penalties and a stackmat-style competition mode.</p>
+            <span class="tc-foot mono">Ao5 · Ao12 · +2 · DNF <svg class="i"><use href="#i-arrow"/></svg></span>
+          </a>
+          <a class="tool-card tc-2" href="#solver" data-reveal data-tilt="5">
+            <span class="tc-top"><svg class="i"><use href="#i-cube"/></svg><span class="tc-num">02</span></span>
+            <h3>Cube</h3>
+            <p>A virtual 3×3 you can swipe — and a solver that reads your real cube through the camera.</p>
+            <span class="tc-foot mono">Virtual · Solver · Scan <svg class="i"><use href="#i-arrow"/></svg></span>
+          </a>
+          <div class="cube-anchor cube-anchor--tools" data-cube="tools" data-explode="1" aria-hidden="true"></div>
+          <a class="tool-card tc-3" href="#stats" data-reveal data-tilt="5">
+            <span class="tc-top"><svg class="i"><use href="#i-stats"/></svg><span class="tc-num">03</span></span>
+            <h3>Stats</h3>
+            <p>Every average from Ao5 to Ao100, distributions, consistency and day-by-day trends.</p>
+            <span class="tc-foot mono">Mo3 · Ao50 · σ · sub-X <svg class="i"><use href="#i-arrow"/></svg></span>
+          </a>
+          <a class="tool-card tc-4" href="#learn" data-reveal data-tilt="5">
+            <span class="tc-top"><svg class="i"><use href="#i-learn"/></svg><span class="tc-num">04</span></span>
+            <h3>Learn</h3>
+            <p>F2L, OLL, PLL and CMLL with an animated player. It reads your Ao12 and picks your next step.</p>
+            <span class="tc-foot mono">41 · 57 · 21 · 42 cases <svg class="i"><use href="#i-arrow"/></svg></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TIMER ============ -->
+    <section class="section timer-sec" id="timer">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow"><span class="num">01</span>Timer</p>
+          <h2>Built for the moment<br>you <em>let go.</em></h2>
+          <p class="lead">Times to the hundredth and handles the rules for you, so the only thing you think about is the cube. This one works — give it a go.</p>
+        </header>
+        <div class="timer-layout">
+          <div class="timer-app" id="timerApp" data-reveal>
+            <span class="demo-tag"><span class="dot"></span>Live demo</span>
+            <div class="ta-top">
+              <span class="ta-profile">You <svg class="i i-sm"><use href="#i-chev"/></svg></span>
+              <button class="icon-btn" id="tNewScr" type="button" aria-label="New scramble" title="New scramble"><svg class="i"><use href="#i-refresh"/></svg></button>
+            </div>
+            <div class="ta-chips">
+              <button class="chip" id="tInspect" type="button" aria-pressed="false">Inspection 15 s</button>
+              <button class="chip" id="tComp" type="button" aria-pressed="false"><svg class="i i-sm"><use href="#i-pads"/></svg>Competition</button>
+            </div>
+            <div class="ta-scramble mono ta-hide" id="tScramble" aria-label="Scramble"></div>
+            <div class="ta-stage" id="tStage">
+              <div class="pad" data-pad="l" data-key="KeyF"><svg class="i i-lg"><use href="#i-hand"/></svg><span>Left hand</span><kbd>F</kbd></div>
+              <div class="ta-center">
+                <div class="ta-time" id="tTime" aria-live="off">0.00</div>
+                <div class="ta-pb" id="tPB" hidden><span class="pb-tag">NEW PB</span><span class="pb-text" id="tPBtext"></span></div>
+                <div class="ta-sub ta-hide" id="tSub">Solve 1</div>
+                <div class="ta-avgs ta-hide"><span>Ao5 <b id="tAo5">—</b></span><span>Ao12 <b id="tAo12">—</b></span></div>
+                <div class="ta-actions ta-hide">
+                  <button class="sq" id="tPlus2" type="button" aria-pressed="false">+2</button>
+                  <button class="sq" id="tDNF" type="button" aria-pressed="false">DNF</button>
+                  <button class="sq" id="tDel" type="button" aria-label="Delete last solve"><svg class="i"><use href="#i-trash"/></svg></button>
+                </div>
+                <p class="ta-hint" id="tHint"></p>
+              </div>
+              <div class="pad" data-pad="r" data-key="KeyJ"><svg class="i i-lg"><use href="#i-hand"/></svg><span>Right hand</span><kbd>J</kbd></div>
+            </div>
+            <div class="ta-bottom ta-hide">
+              <div class="cube-anchor cube-anchor--mini" data-cube="timer" aria-hidden="true"></div>
+              <div class="ta-table-wrap">
+                <table class="ta-table" id="tTable"></table>
+                <button class="text-btn" id="tClear" type="button">Clear session</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="timer-feats">
+            <article class="feat" data-reveal>
+              <span class="feat-ico"><svg class="i"><use href="#i-voice"/></svg></span>
+              <div><h3>Spoken WCA inspection</h3><p>A 15-second countdown that calls out “eight seconds” and “twelve”. Over 15 s adds +2, over 17 s is a DNF — automatically.</p></div>
+            </article>
+            <article class="feat" data-reveal>
+              <span class="feat-ico"><svg class="i"><use href="#i-pads"/></svg></span>
+              <div><h3>Competition mode</h3><p>Turn your phone sideways and get two hand pads, just like a stackmat. It only arms when both hands are down.</p></div>
+            </article>
+            <figure class="landscape" data-reveal data-tilt="8">
+              <div class="phone-l"><div class="screen-l"><img src="assets/screens/competition-pb.jpg" alt="Candence competition mode in landscape, celebrating a new personal best with confetti"></div></div>
+              <figcaption class="mono">Competition mode · a new PB, celebrated</figcaption>
+            </figure>
+            <article class="feat" data-reveal>
+              <span class="feat-ico"><svg class="i"><use href="#i-spark"/></svg></span>
+              <div><h3>Every PB, celebrated</h3><p>Single, Ao5 and Ao12 tracked live after every solve — with a burst of confetti when you beat one.</p></div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SOLVER ============ -->
+    <section class="section solver-sec" id="solver">
+      <div class="wrap solver-layout">
+        <div class="solver-copy">
+          <header class="sec-head" data-reveal>
+            <p class="eyebrow"><span class="num">02</span>Cube</p>
+            <h2>Stuck? <em>Show it</em><br>your cube.</h2>
+            <p class="lead">Hold it with green in front and white on top, scan each face — or tap the colours in. Candence checks every sticker, then plays the solution back one move at a time.</p>
+          </header>
+          <div class="scan-panel" id="scanPanel" data-reveal>
+            <div class="scan-status"><span class="scan-dot"></span><span id="scanStatus">Point the camera at your cube</span></div>
+            <div class="swatches" id="swatches"></div>
+            <div class="solution mono" id="solution"><span class="ph">Waiting for all 54 stickers…</span></div>
+            <div class="scan-actions">
+              <button class="btn btn--light btn--sm" id="scanAgain" type="button"><svg class="i"><use href="#i-camera"/></svg>Scan another cube</button>
+              <span class="muted sm">Simulated scan of a random scramble</span>
+            </div>
+          </div>
+          <div class="virtual-note" data-reveal>
+            <svg class="i"><use href="#i-cube"/></svg>
+            <p><b>Prefer pixels?</b> Virtual mode turns the same cube into a swipeable 3×3 with its own timer that starts on your first move. You've already tried it — it's the cube at the top of this page.</p>
+          </div>
+        </div>
+        <div class="solver-stage">
+          <div class="scan-frame" id="scanFrame" aria-hidden="true"><i></i><i></i><i></i><i></i><b class="scan-line"></b></div>
+          <div class="cube-anchor cube-anchor--solver" data-cube="solver" aria-hidden="true"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ STATS ============ -->
+    <section class="section stats-sec" id="stats">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow"><span class="num">03</span>Stats</p>
+          <h2>Numbers that tell<br>you <em>why.</em></h2>
+          <p class="lead">Not just your best time — your consistency, your trend, your most common result and the exact solve where it all clicked. Hover the chart.</p>
+        </header>
+        <div class="dash" id="dash" data-reveal>
+          <div class="dash-head">
+            <div><h3>Statistics</h3><p class="muted" id="dashMeta">Sample session</p></div>
+            <div class="seg" role="group" aria-label="Data source">
+              <button type="button" data-src="sample" aria-pressed="true">Sample</button>
+              <button type="button" data-src="mine" aria-pressed="false" disabled>Your solves</button>
+            </div>
+          </div>
+          <div class="dash-tiles" id="dashTiles"></div>
+          <div class="dash-grid">
+            <div class="panel panel--wide">
+              <div class="panel-head"><h4>Solve times</h4>
+                <div class="legend"><span><i class="lg-dot"></i>Single</span><span><i class="lg-line"></i>Ao12</span><span><i class="lg-best"></i>Best</span></div>
+              </div>
+              <div class="chart chart--scatter" id="chScatter"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><h4>Distribution</h4><span class="muted sm">1 s bins</span></div>
+              <div class="chart" id="chDist"></div>
+              <div class="chart-foot" id="distFoot"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><h4>Session performance</h4><span class="muted sm">mean per practice day</span></div>
+              <div class="chart" id="chDays"></div>
+              <div class="chart-foot" id="daysFoot"></div>
+            </div>
+            <div class="panel">
+              <div class="panel-head"><h4>Consistency &amp; volume</h4></div>
+              <dl class="kv" id="kv"></dl>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LEARN ============ -->
+    <section class="section learn-sec" id="learn">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow"><span class="num">04</span>Learn</p>
+          <h2>A coach that knows<br>your <em>next step.</em></h2>
+          <p class="lead">Candence reads your Ao12 and tells you what to learn next — then teaches it with an animated player, recognition tips and drills. Drag the slider.</p>
+        </header>
+
+        <div class="coach" data-reveal>
+          <div class="coach-input">
+            <div class="coach-row"><label for="coachRange">Your Ao12</label><output id="coachOut" for="coachRange">50.59 s</output></div>
+            <input type="range" id="coachRange" min="10" max="150" step="0.01" value="50.59">
+            <div class="range-scale mono"><span>10 s</span><span>speedcuber</span><span>beginner</span><span>150 s</span></div>
+          </div>
+          <div class="coach-card" id="coachCard">
+            <div class="cc-top"><span id="coachRangeLbl">Your next step</span><span class="cc-ao" id="coachAo">Your Ao12</span></div>
+            <h3 id="coachTitle">Learn intuitive F2L</h3>
+            <p id="coachBody"></p>
+            <ul class="cc-chips" id="coachChips"></ul>
+          </div>
+        </div>
+
+        <div class="player" data-reveal>
+          <div class="player-stage">
+            <div class="cube-anchor cube-anchor--learn" data-cube="learn" aria-hidden="true"></div>
+          </div>
+          <div class="player-ui">
+            <div class="case-chips" id="caseChips" role="group" aria-label="Choose a case"></div>
+            <p class="case-set muted" id="caseSet">OLL · Cross</p>
+            <h3 class="case-name" id="caseName">OLL 25 · Bowtie</h3>
+            <div class="alg mono" id="algRow"></div>
+            <div class="progress"><i id="algBar"></i></div>
+            <div class="controls">
+              <button class="ctl" id="pRestart" type="button" aria-label="Restart"><svg class="i"><use href="#i-restart"/></svg></button>
+              <button class="ctl" id="pPrev" type="button" aria-label="Previous move"><svg class="i"><use href="#i-prev"/></svg></button>
+              <button class="ctl ctl--play" id="pPlay" type="button" aria-label="Play"><svg class="i ic-play"><use href="#i-play"/></svg><svg class="i ic-pause"><use href="#i-pause"/></svg></button>
+              <button class="ctl" id="pNext" type="button" aria-label="Next move"><svg class="i"><use href="#i-next"/></svg></button>
+            </div>
+            <div class="player-meta">
+              <span id="moveCount">Move 0 of 8</span>
+              <div class="seg seg--sm" id="speedSeg" role="group" aria-label="Speed">
+                <button type="button" data-speed="0.5" aria-pressed="false">0.5×</button>
+                <button type="button" data-speed="1" aria-pressed="true">1×</button>
+                <button type="button" data-speed="2" aria-pressed="false">2×</button>
+              </div>
+            </div>
+            <div class="recog">
+              <div class="recog-icon" id="recogIcon"></div>
+              <div><p class="muted sm">Recognise it</p><p id="recogText"></p><p class="freq mono" id="caseFreq"></p></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="methods" data-reveal>
+          <div class="seg seg--lg" id="methodSeg" role="group" aria-label="Solving method"></div>
+          <div class="method-card"><b id="methodTitle"></b><p id="methodBody"></p></div>
+          <p class="library mono">F2L <b>41</b><i>·</i>OLL <b>57</b><i>·</i>PLL <b>21</b><i>·</i>CMLL <b>42</b></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SCREENS ============ -->
+    <section class="section screens-sec" id="screens">
+      <div class="wrap">
+        <header class="sec-head center" data-reveal>
+          <p class="eyebrow"><span class="dot"></span>Interface</p>
+          <h2>Calm by <em>design.</em></h2>
+          <p class="lead">Monochrome, one accent colour, nothing that blinks. When you're solving, the only thing on screen is the time. Drag to spin.</p>
+        </header>
+      </div>
+      <div class="ring-stage" id="ringStage">
+        <div class="ring" id="ring">
+          <div class="phone" data-title="Timer" data-caption="Big digits, live Ao5 and Ao12, the scramble right where you need it."><div class="screen"><img src="assets/screens/timer.jpg" alt="Candence timer screen" draggable="false"></div></div>
+          <div class="phone" data-title="Virtual cube" data-caption="Swipe any sticker to turn it. The timer starts on your first move."><div class="screen"><img src="assets/screens/cube.jpg" alt="Candence virtual cube screen" draggable="false"></div></div>
+          <div class="phone" data-title="Solver" data-caption="Scan or tap in your colours. Counters make sure all 54 are right."><div class="screen"><img src="assets/screens/solver.jpg" alt="Candence solver colour entry screen" draggable="false"></div></div>
+          <div class="phone" data-title="Statistics" data-caption="Ao5 to Ao100, best single, mean and a chart of every solve."><div class="screen"><img src="assets/screens/stats.jpg" alt="Candence statistics screen" draggable="false"></div></div>
+          <div class="phone" data-title="History" data-caption="Every solve grouped by day. Search it like a cuber: “&lt; 12”."><div class="screen"><img src="assets/screens/history.jpg" alt="Candence solve history screen" draggable="false"></div></div>
+          <div class="phone" data-title="Learn" data-caption="Your next step, picked from your own average."><div class="screen"><img src="assets/screens/learn.jpg" alt="Candence learn screen" draggable="false"></div></div>
+          <div class="phone" data-title="Alg player" data-caption="Step through any case at 0.5×, 1× or 2×."><div class="screen"><img src="assets/screens/alg-player.jpg" alt="Candence algorithm player" draggable="false"></div></div>
+          <div class="phone" data-title="Settings" data-caption="Hold time, hidden clock, spoken inspection. Your rules."><div class="screen"><img src="assets/screens/settings.jpg" alt="Candence settings screen" draggable="false"></div></div>
+        </div>
+      </div>
+      <p class="ring-caption" id="ringCaption"></p>
+    </section>
+
+    <!-- ============ DETAILS ============ -->
+    <section class="section details-sec" id="details">
+      <div class="wrap">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow"><span class="dot"></span>Details</p>
+          <h2>The little things<br><em>cubers notice.</em></h2>
+          <p class="lead">These aren't screenshots — the top three settings drive the live timer above.</p>
+        </header>
+        <div class="details-grid">
+          <article class="dcard" data-reveal>
+            <span class="feat-ico"><svg class="i"><use href="#i-hold"/></svg></span>
+            <h3>Hold to start</h3>
+            <p>How long you hold before the timer turns green.</p>
+            <div class="seg seg--sm" data-setting="holdMs"><button type="button" data-v="100">0.1 s</button><button type="button" data-v="300">0.3 s</button><button type="button" data-v="550">0.55 s</button><button type="button" data-v="1000">1 s</button></div>
+          </article>
+          <article class="dcard" data-reveal>
+            <span class="feat-ico"><svg class="i"><use href="#i-eye"/></svg></span>
+            <h3>Hide the clock</h3>
+            <p>Running time distracting you? Show it to the hundredth, the second, or not at all. <span class="mono preview" id="displayPreview">12.84</span></p>
+            <div class="seg seg--sm" data-setting="display"><button type="button" data-v="cs">0.01 s</button><button type="button" data-v="s">1 s</button><button type="button" data-v="hidden">Hidden</button></div>
+          </article>
+          <article class="dcard" data-reveal>
+            <span class="feat-ico"><svg class="i"><use href="#i-voice"/></svg></span>
+            <h3>Inspection alerts</h3>
+            <p>Spoken “eight seconds” and “twelve”, or short beeps. Tap to hear it.</p>
+            <div class="seg seg--sm" data-setting="alerts"><button type="button" data-v="voice">Voice</button><button type="button" data-v="beep">Beep</button><button type="button" data-v="off">Off</button></div>
+          </article>
+          <article class="dcard dcard--search" data-reveal>
+            <span class="feat-ico"><svg class="i"><use href="#i-search"/></svg></span>
+            <h3>Search like a cuber</h3>
+            <p>Filter your history by time. Try <span class="mono">&lt; 46</span> or <span class="mono">&gt; 55</span>.</p>
+            <label class="search"><svg class="i i-sm"><use href="#i-search"/></svg><input id="histSearch" type="text" placeholder="Search, or try < 12" autocomplete="off" spellcheck="false" aria-label="Search sample solve history"></label>
+            <ul class="hist mono" id="histList"></ul>
+          </article>
+          <article class="dcard" data-reveal>
+            <span class="feat-ico"><svg class="i"><use href="#i-users"/></svg></span>
+            <h3>Profiles</h3>
+            <p>One phone, every cuber in the house. Switch profiles from the top of the timer; each keeps its own sessions.</p>
+          </article>
+          <article class="dcard" data-reveal>
+            <span class="feat-ico"><svg class="i"><use href="#i-note"/></svg></span>
+            <h3>Notes on solves</h3>
+            <p>Pin a thought to any solve — “lockup on the U-perm” — and filter for it later.</p>
+          </article>
+          <article class="dcard" data-reveal>
+            <span class="feat-ico"><svg class="i"><use href="#i-spark"/></svg></span>
+            <h3>Made to feel good</h3>
+            <p>Smooth animations and a little celebration when it matters.</p>
+            <button class="btn btn--sm" id="partyBtn" type="button">Celebrate a PB</button>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- ============ FAQ ============ -->
+    <section class="section faq-sec" id="faq">
+      <div class="wrap faq-layout">
+        <header class="sec-head" data-reveal>
+          <p class="eyebrow"><span class="dot"></span>FAQ</p>
+          <h2>Good <em>questions.</em></h2>
+        </header>
+        <div class="faq" data-reveal>
+          <details open><summary>Does the timer follow WCA rules?</summary><p>Yes. Optional 15-second inspection with alerts at 8 and 12 seconds; going over 15 s adds +2 and over 17 s is a DNF, automatically. You can also mark +2 or DNF on any solve yourself.</p></details>
+          <details><summary>Can I use my phone like a stackmat?</summary><p>Turn on Competition mode and rotate your phone. Two hand pads appear, and the timer only arms when both hands are down — just like at a competition.</p></details>
+          <details><summary>How does the solver read my cube?</summary><p>Hold your cube with green in front and white on top, then scan each face with the camera or tap the colours in. Candence counts every colour so you know all 54 stickers are right before it solves.</p></details>
+          <details><summary>I'm a complete beginner. Is Candence for me?</summary><p>Yes. Learn starts with the beginner method and moves you forward as your Ao12 drops — from your very first solve all the way to full CFOP.</p></details>
+          <details><summary>What do Ao5 and Ao12 mean?</summary><p>“Average of 5” and “average of 12”: your latest solves with the best and worst removed, then averaged. It's how speedcubers measure real progress, because one lucky solve doesn't count.</p></details>
+          <details><summary>Which methods does it teach?</summary><p>Beginner, CFOP, Roux, ZZ and Petrus — with 41 F2L, 57 OLL, 21 PLL and 42 CMLL cases to work through.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="cta" id="download">
+      <div class="cta-bg" aria-hidden="true"></div>
+      <div class="wrap cta-inner">
+        <div class="cta-copy">
+        <h2 data-reveal>Your next PB is<br><em>one solve away.</em></h2>
+        <p class="lead" data-reveal>Download Candence free. Your cube is waiting — and so is this one. Give it a spin.</p>
+        <!-- NOTE: replace href="#" with your real store links -->
+        <div class="store-btns" data-reveal>
+          <a class="store" href="#" aria-label="Download on the App Store">
+            <svg class="i"><use href="#i-down"/></svg><span><small>Download on the</small>App Store</span>
+          </a>
+          <a class="store" href="#" aria-label="Get it on Google Play">
+            <svg class="i"><use href="#i-down"/></svg><span><small>Get it on</small>Google Play</span>
+          </a>
+        </div>
+        </div>
+        <div class="cube-anchor cube-anchor--cta" data-cube="cta" data-touch="none" aria-label="Interactive 3D cube"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <a class="brand" href="#top" aria-label="Candence home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 28.1 9 16 16 3.9 9z" fill="#f2f1ea"/><path d="M3.9 9 16 16v14L3.9 23z" fill="#1fa862"/><path d="M16 16 28.1 9v14L16 30z" fill="#e43b30"/></svg>
+        <span>Candence</span>
+      </a>
+      <nav class="footer-links" aria-label="Footer"><a href="#timer">Timer</a><a href="#solver">Cube</a><a href="#stats">Stats</a><a href="#learn">Learn</a><a href="#faq">FAQ</a></nav>
+      <p class="muted sm">© <span id="year">2026</span> Candence. Made for cubers.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="js/cube.js"></script>
+  <script src="js/timer.js"></script>
+  <script src="js/sections.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
