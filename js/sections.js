@@ -1,8 +1,8 @@
-/* Candence — page sections: effects, stats dashboard, coach, alg player,
+/* Cadence — page sections: effects, stats dashboard, coach, alg player,
    solver demo, screen carousel and the little settings demos. */
 (function () {
   'use strict';
-  const NS = (window.Candence = window.Candence || {});
+  const NS = (window.Cadence = window.Cadence || {});
   const $ = (id) => document.getElementById(id);
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));

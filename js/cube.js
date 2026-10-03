@@ -1,8 +1,8 @@
-/* Candence — 3D cube engine + move notation helpers.
+/* Cadence — 3D cube engine + move notation helpers.
    Uses the global THREE (r128) loaded from cdnjs. */
 (function () {
   'use strict';
-  const NS = (window.Candence = window.Candence || {});
+  const NS = (window.Cadence = window.Cadence || {});
   const HALF = Math.PI / 2;
 
   /* Standard colour scheme: white top, green front, red right. */

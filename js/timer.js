@@ -1,9 +1,9 @@
-/* Candence — the live timer demo (mirrors the app's Timer tab). */
+/* Cadence — the live timer demo (mirrors the app's Timer tab). */
 (function () {
   'use strict';
-  const NS = (window.Candence = window.Candence || {});
-  const STORE = 'candence.web.solves.v1';
-  const SETTINGS = 'candence.web.settings.v1';
+  const NS = (window.Cadence = window.Cadence || {});
+  const STORE = 'cadence.web.solves.v1';
+  const SETTINGS = 'cadence.web.settings.v1';
   const $ = (id) => document.getElementById(id);
 
   /* ---------- shared maths (also used by the stats dashboard) ---------- */

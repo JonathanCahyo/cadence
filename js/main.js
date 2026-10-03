@@ -1,7 +1,7 @@
-/* Candence — boot, scroll choreography and the hero's virtual cube. */
+/* Cadence — boot, scroll choreography and the hero's virtual cube. */
 (function () {
   'use strict';
-  const NS = window.Candence;
+  const NS = window.Cadence;
   const C = NS.cube;
   const U = NS.util;
   const $ = (id) => document.getElementById(id);
